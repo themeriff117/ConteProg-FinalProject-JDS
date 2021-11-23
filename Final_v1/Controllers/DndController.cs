@@ -24,7 +24,7 @@ namespace Final_v1.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public IEnumerable<DndDatabase> Get()
         {
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
@@ -37,12 +37,19 @@ namespace Final_v1.Controllers
         }
 
         [HttpPut]
-        public IEnumerable<WeatherForecast> Get() { 
+        public IEnumerable<DndDatabase> Get() 
+        { 
          //public IActionResult UpdateDnd(DndClass class)
          //IActionResult displays the
-         //IActionResult vs IEnumerable
-         
 
+        }
+
+        [HttpDelete]
+        public IEnumerable<DndDatabase> Get()
+        {
+            _db.DeleteDndChar(char);
         }
     }
 }
+
+//Need database class to wrap context
