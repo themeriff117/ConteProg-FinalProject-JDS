@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 
 namespace Final_v1
 {
-    //(localdb)\.
-    public class NameDatabase
+    public class Anime
     {
+        public int ID{ get; set; }
+
         public string Name { get; set; }
 
-        public DateTime Bday { get; set; }
+        public string Genere { get; set; }
 
-        public string CP{ get; set; }
+        public string Description { get; set; }
 
-        public int Year{ get; set; }
     }
 }
