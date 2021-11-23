@@ -35,5 +35,14 @@ namespace Final_v1.Controllers
             })
             .ToArray();
         }
+
+        [HttpPut]
+        public IEnumerable<WeatherForecast> Get() { 
+         //public IActionResult UpdateDnd(DndClass class)
+         //IActionResult displays the
+         //IActionResult vs IEnumerable
+         
+
+        }
     }
 }
