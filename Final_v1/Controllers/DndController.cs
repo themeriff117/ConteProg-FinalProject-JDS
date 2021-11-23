@@ -1,15 +1,39 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Final_v1
+namespace Final_v1.Controllers
 {
-    public class WeatherForecast
+    [ApiController]
+    [Route("[controller]")]
+    public class DndController : ControllerBase
     {
-        public DateTime Date { get; set; }
+        private static readonly string[] Summaries = new[]
+        {
+            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+        };
 
-        public int TemperatureC { get; set; }
+        private readonly ILogger<DndController> _logger;
 
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+        public DndController(ILogger<DndController> logger)
+        {
+            _logger = logger;
+        }
 
-        public string Summary { get; set; }
+        [HttpGet]
+        public IEnumerable<WeatherForecast> Get()
+        {
+            var rng = new Random();
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = DateTime.Now.AddDays(index),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = Summaries[rng.Next(Summaries.Length)]
+            })
+            .ToArray();
+        }
     }
 }
