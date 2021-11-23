@@ -52,4 +52,5 @@ namespace Final_v1.Controllers
     }
 }
 
-//Need database class to wrap context
+//Need database class to wrap context (another class)
+//Context and database are a 1 to 1 relationship, meaning 1 context and 1 database 
