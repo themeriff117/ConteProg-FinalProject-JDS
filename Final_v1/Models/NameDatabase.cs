@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 
 namespace Final_v1
 {
-    //(localdb)\.
     public class NameDatabase
     {
         public string Name { get; set; }
