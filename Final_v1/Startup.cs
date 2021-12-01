@@ -44,7 +44,7 @@ namespace Final_v1
                 app.UseOpenApi();
                 app.UseSwaggerUi3();
             }
-            context.Database.Migrate();
+            //context.Database.Migrate();
 
             app.UseHttpsRedirection();
 

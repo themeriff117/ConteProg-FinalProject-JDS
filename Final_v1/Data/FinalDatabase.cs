@@ -59,6 +59,6 @@ namespace Final_v1.Data
 
         // follow above code (from line 16) for your tables,
         // used Prof's  https://github.com/dekokdj1/TestMvcProject/blob/main/TestMvcProject/Data/FootballTeamsDatabase.cs as guide
-        // then follow my controller as guide to update your controller
+        // follow my controller as guide to update your controller
     }
 }
