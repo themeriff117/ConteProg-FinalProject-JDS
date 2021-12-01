@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Final_v1.Data;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -14,40 +16,71 @@ namespace Final_v1.Controllers
     public class VinylCollection_Controller : ControllerBase
     {
         private readonly ILogger<VinylCollection_Controller> _logger;
-        public VinylCollection_Controller(ILogger<VinylCollection_Controller> logger)
+        private readonly Finalcontext _context;
+        public VinylCollection_Controller(ILogger<VinylCollection_Controller> logger, Finalcontext context)
         {
             _logger = logger;
+            _context = context;
         }
-        // GET: api/<VinylCollection_Controller>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(_context.VinylCollection.ToList());
         }
 
-        // GET api/<VinylCollection_Controller>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("artist")]
+        public IActionResult GetVinylByArtist(string artist)
         {
-            return "value";
+            var vinyl = _context.GetVinylByArtist(artist);
+            if (vinyl.ToList().Count() == 0)
+                return NotFound();
+            if (vinyl != null)
+            {
+                return Ok(vinyl);
+            }
+            return NotFound();
         }
 
-        // POST api/<VinylCollection_Controller>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult InsertTeam(FootballTeam team)
         {
+            try
+            {
+                _db.AddNewFootballTeam(team);
+            }
+            catch (Exception e)
+            {
+                return new StatusCodeResult(500);
+            }
+            return Created("", team);
         }
 
-        // PUT api/<VinylCollection_Controller>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public IActionResult UpdateTeam(FootballTeam team)
         {
+            var result = _db.UpdateFootballTeam(team);
+            if (result == null)
+                return NotFound();
+            return Ok(team);
         }
 
-        // DELETE api/<VinylCollection_Controller>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Finalcontext))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult DeleteTeamById(int id)
         {
+            try
+            {
+                var deletedTeam = _context.DeleteFootballTeam(id);
+                if (deletedTeam == null)
+                    return NotFound();
+                return Ok(deletedTeam);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(500);
+            }
         }
     }
 }

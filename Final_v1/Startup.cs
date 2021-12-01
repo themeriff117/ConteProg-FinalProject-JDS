@@ -29,6 +29,7 @@ namespace Final_v1
         {
             services.AddControllers();
             services.AddDbContext<Finalcontext>(options => options.UseSqlServer(Configuration.GetConnectionString("Finalcontext")));
+            services.AddSwaggerDocument();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,6 +40,9 @@ namespace Final_v1
                 app.UseDeveloperExceptionPage();
             }
             context.Database.Migrate();
+
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
 
             app.UseHttpsRedirection();
 
