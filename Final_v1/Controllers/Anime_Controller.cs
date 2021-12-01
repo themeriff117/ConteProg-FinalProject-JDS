@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +13,7 @@ namespace Final_v1.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(new Anime {ID= "1" Name = "Konosuba" });
+            return Ok(new Anime {ID= 1, Name = "Konosuba" });
         }
         [HttpDelete]
         

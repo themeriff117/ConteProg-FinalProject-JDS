@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Final_v1.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class VinylCollection_Controller : ControllerBase
     {
