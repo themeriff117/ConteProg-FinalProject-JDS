@@ -28,7 +28,7 @@ namespace Final_v1.Controllers
         }
 
         [HttpPost]
-        public IActionResult InsertTeam(Vinyl vinyls)
+        public IActionResult AddNewVinyl(Vinyl vinyls)
         {
             try
             {
