@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,11 @@ namespace Final_v1.Controllers
     [ApiController]
     public class VinylCollection_Controller : ControllerBase
     {
+        private readonly ILogger<VinylCollection_Controller> _logger;
+        public VinylCollection_Controller(ILogger<VinylCollection_Controller> logger)
+        {
+            _logger = logger;
+        }
         // GET: api/<VinylCollection_Controller>
         [HttpGet]
         public IEnumerable<string> Get()

@@ -9,7 +9,7 @@ namespace Final_v1
     {
         public string Name { get; set; }
 
-        public DateTime Bday { get; set; }
+        public string Bday { get; set; }
 
         public string CP{ get; set; }
 
