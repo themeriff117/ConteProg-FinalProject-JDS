@@ -6,8 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Final_v1.Models;
 
 namespace Final_v1.Controllers
 {
@@ -16,8 +15,8 @@ namespace Final_v1.Controllers
     public class VinylCollection_Controller : ControllerBase
     {
         private readonly ILogger<VinylCollection_Controller> _logger;
-        private readonly Finalcontext _context;
-        public VinylCollection_Controller(ILogger<VinylCollection_Controller> logger, Finalcontext context)
+        private readonly FinalDatabase _context;
+        public VinylCollection_Controller(ILogger<VinylCollection_Controller> logger, FinalDatabase context)
         {
             _logger = logger;
             _context = context;
@@ -25,57 +24,48 @@ namespace Final_v1.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_context.VinylCollection.ToList());
-        }
-
-        [HttpGet("artist")]
-        public IActionResult GetVinylByArtist(string artist)
-        {
-            var vinyl = _context.GetVinylByArtist(artist);
-            if (vinyl.ToList().Count() == 0)
-                return NotFound();
-            if (vinyl != null)
-            {
-                return Ok(vinyl);
-            }
-            return NotFound();
+            return Ok(_context.GetAllVinyls());
         }
 
         [HttpPost]
-        public IActionResult InsertTeam(FootballTeam team)
+        public IActionResult InsertTeam(Vinyl vinyls)
         {
             try
             {
-                _db.AddNewFootballTeam(team);
+                _context.AddNewVinyl(vinyls);
             }
             catch (Exception e)
             {
                 return new StatusCodeResult(500);
             }
-            return Created("", team);
+            return Created("", vinyls);
         }
 
         [HttpPut]
-        public IActionResult UpdateTeam(FootballTeam team)
+        public IActionResult UpdateTeam(Vinyl vinyls)
         {
-            var result = _db.UpdateFootballTeam(team);
+            var result = _context.UpdateVinylCollection(vinyls);
             if (result == null)
+            {
                 return NotFound();
-            return Ok(team);
+            }
+            return Ok(vinyls);
         }
 
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Finalcontext))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult DeleteTeamById(int id)
+        public IActionResult DeleteVinyl(string artist)
         {
             try
             {
-                var deletedTeam = _context.DeleteFootballTeam(id);
-                if (deletedTeam == null)
+                var deletedVinyl = _context.DeleteVinyl(artist);
+                if (deletedVinyl == null)
+                {
                     return NotFound();
-                return Ok(deletedTeam);
+                }
+                return Ok(deletedVinyl);
             }
             catch (Exception)
             {
