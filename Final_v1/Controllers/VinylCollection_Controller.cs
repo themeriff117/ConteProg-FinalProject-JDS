@@ -42,7 +42,7 @@ namespace Final_v1.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateTeam(Vinyl vinyls)
+        public IActionResult UpdateVinylCollection(Vinyl vinyls)
         {
             var result = _context.UpdateVinylCollection(vinyls);
             if (result == null)
@@ -56,6 +56,7 @@ namespace Final_v1.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Finalcontext))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        
         public IActionResult DeleteVinyl(string artist)
         {
             try
