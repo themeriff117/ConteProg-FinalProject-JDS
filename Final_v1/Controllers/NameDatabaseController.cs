@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Final_v1.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,17 +13,19 @@ namespace Final_v1.Controllers
     [Route("[controller]")]
     public class NameDatabaseController : Controller
     {
-            readonly ILogger<NameDatabaseController> _logger;
+            private readonly ILogger<NameDatabaseController> _logger;
+            private readonly Finalcontext _context; 
 
-            public NameDatabaseController(ILogger<NameDatabaseController> logger)
+            public NameDatabaseController(ILogger<NameDatabaseController> logger, Finalcontext context)
             {
                 _logger = logger;
+                _context = context;
             }
 
             [HttpGet]
             public IActionResult Get()
             {
-                return Ok(new NameDatabase { Name = "Sam"});
+                return Ok(_context.NameDatabase.toList);
             }
 
             [HttpPut]
