@@ -27,17 +27,24 @@ namespace Final_v1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<Finalcontext>(options 
+                => options.UseSqlServer(Configuration.GetConnectionString("Finalcontext")));
+
+            services.AddScoped<FinalDatabase>();
             services.AddControllers();
-            services.AddDbContext<Finalcontext>(options => options.UseSqlServer(Configuration.GetConnectionString("Finalcontext")));
+            services.AddSwaggerDocument();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Finalcontext context ) 
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, Finalcontext context )
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
+            //context.Database.Migrate();
 
             context.Database.Migrate();
 

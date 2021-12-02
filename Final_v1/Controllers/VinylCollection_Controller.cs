@@ -1,47 +1,77 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Final_v1.Data;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Final_v1.Models;
 
 namespace Final_v1.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class VinylCollection_Controller : ControllerBase
     {
-        // GET: api/<VinylCollection_Controller>
+        private readonly ILogger<VinylCollection_Controller> _logger;
+        private readonly FinalDatabase _context;
+        public VinylCollection_Controller(ILogger<VinylCollection_Controller> logger, FinalDatabase context)
+        {
+            _logger = logger;
+            _context = context;
+        }
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            return Ok(_context.GetAllVinyls());
         }
 
-        // GET api/<VinylCollection_Controller>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<VinylCollection_Controller>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult AddNewVinyl(Vinyl vinyls)
         {
+            try
+            {
+                _context.AddNewVinyl(vinyls);
+            }
+            catch (Exception e)
+            {
+                return new StatusCodeResult(500);
+            }
+            return Created("", vinyls);
         }
 
-        // PUT api/<VinylCollection_Controller>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        public IActionResult UpdateVinylCollection(Vinyl vinyls)
         {
+            var result = _context.UpdateVinylCollection(vinyls);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(vinyls);
         }
 
-        // DELETE api/<VinylCollection_Controller>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Finalcontext))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        
+        public IActionResult DeleteVinyl(string artist)
         {
+            try
+            {
+                var deletedVinyl = _context.DeleteVinyl(artist);
+                if (deletedVinyl == null)
+                {
+                    return NotFound();
+                }
+                return Ok(deletedVinyl);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(500);
+            }
         }
     }
 }
