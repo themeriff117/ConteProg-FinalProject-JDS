@@ -14,9 +14,9 @@ namespace Final_v1.Controllers
     public class NameDatabaseController : Controller
     {
             private readonly ILogger<NameDatabaseController> _logger;
-            private readonly Finalcontext _context; 
+            private readonly FinalDatabase _context; 
 
-            public NameDatabaseController(ILogger<NameDatabaseController> logger, Finalcontext context)
+            public NameDatabaseController(ILogger<NameDatabaseController> logger,  FinalDatabase context)
             {
                 _logger = logger;
                 _context = context;
@@ -25,13 +25,27 @@ namespace Final_v1.Controllers
             [HttpGet]
             public IActionResult Get()
             {
-                return Ok(_context.NameDatabase.toList);
+                return Ok(_context.GetNameDatabase());
             }
 
-            [HttpPut]
-            public IActionResult UpdateName(NameDatabase Name)
+        [HttpPost]
+        public IActionResult AddNameDatabasel(NameDatabase nameDatabase)
+        {
+            try
             {
-                var result = NameDatabase.UpdateName(Name);
+                _context.AddNameDatabase(nameDatabase);
+            }
+            catch (Exception e)
+            {
+                return new StatusCodeResult(500);
+            }
+            return Created("", nameDatabase);
+        }
+
+        [HttpPut]
+            public IActionResult UpdateNameDatabase(NameDatabase Name)
+            {
+                var result = _context.UpdateNameDatabase(Name);
                 if (result == null)
                 {
                     return NotFound();
@@ -40,12 +54,16 @@ namespace Final_v1.Controllers
             }
 
         [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Finalcontext))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(NameDatabase))]
-        public IActionResult DeletebyName(Name) 
+
+        public IActionResult DeletebyName(String Name) 
         {
             try 
             {
-                var deletedName = NameDatabase.DeleteName(Name);
+                var deletedName = _context.DeleteNameDatabase(Name);
                 if (deletedName == null)
                     return NotFound();
                 return Ok(deletedName);

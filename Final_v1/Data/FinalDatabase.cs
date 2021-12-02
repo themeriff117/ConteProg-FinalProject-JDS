@@ -13,6 +13,52 @@ namespace Final_v1.Data
         {
             _context = context;
         }
+        //group table
+        public void AddNameDatabase(NameDatabase nameDatabase)
+        {
+            _context.Name.Add(nameDatabase);
+        }
+        public IEnumerable<NameDatabase> GetNameDatabase()
+        {
+            return _context.Name.ToList();
+        }
+        public void AddNewNameDatabase(NameDatabase nameDatabase)
+        {
+            try
+            {
+                _context.Name.Add(nameDatabase);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public NameDatabase DeleteNameDatabase(string Name)
+        {
+            var nameToDelete = _context.Name.First(x => x.Name == Name);
+            if (nameToDelete != null)
+            {
+                _context.Remove(nameToDelete);
+                _context.SaveChanges();
+            }
+            return nameToDelete;
+        }
+        public NameDatabase UpdateNameDatabase(NameDatabase nameDatabase)
+        {
+            var updateCollection = _context.Name.First(x => x.Name == nameDatabase.Name);
+            if (updateCollection != null)
+            {
+                updateCollection.Name = nameDatabase.Name;
+                updateCollection.Bday = nameDatabase.Bday;
+                updateCollection.CP = nameDatabase.CP;
+                updateCollection.Year = nameDatabase.Year;
+                _context.SaveChanges();
+            }
+            return updateCollection;
+        }
+        //dora's table
         public void AddVinyls(Vinyl vinylToAdd)
         {
             _context.VinylCollection.Add(vinylToAdd);
@@ -56,9 +102,97 @@ namespace Final_v1.Data
             }
             return updateCollection;
         }
+        // Sam
+        public void AddAnime(Anime anime)
+        {
+            _context.Anime.Add(anime);
+        }
+        public IEnumerable<Anime> GetAnime()
+        {
+            return _context.Anime.ToList();
+        }
+        public void AddNewAnime(Anime anime)
+        {
+            try
+            {
+                _context.Anime.Add(anime);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
 
-        // follow above code (from line 16) for your tables,
-        // used Prof's  https://github.com/dekokdj1/TestMvcProject/blob/main/TestMvcProject/Data/FootballTeamsDatabase.cs as guide
-        // follow my controller as guide to update your controller
+        public Anime DeleteAnime(string Name)
+        {
+            var animenameToDelete = _context.Anime.First(x => x.Name == Name);
+            if (animenameToDelete != null)
+            {
+                _context.Remove(animenameToDelete);
+                _context.SaveChanges();
+            }
+            return animenameToDelete;
+        }
+        public Anime UpdateAnime(Anime anime)
+        {
+            var updateCollection = _context.Anime.First(x => x.Name == anime.Name);
+            if (updateCollection != null)
+            {
+                updateCollection.Name = anime.Name;
+                updateCollection.MainChara = anime.MainChara;
+                updateCollection.Genre = anime.Genre;
+                updateCollection.Description = anime.Description;
+                _context.SaveChanges();
+            }
+            return updateCollection;
+        }
+        // Julia
+        public void AddDnD(DnD dnd)
+        {
+            _context.DnD.Add(dnd);
+        }
+        public IEnumerable<DnD> GetDnD()
+        {
+            return _context.DnD.ToList();
+        }
+        public void AddNewDnD(DnD dnd)
+        {
+            try
+            {
+                _context.DnD.Add(dnd);
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public DnD DeleteDnD(string Name)
+        {
+            var dndnameToDelete = _context.DnD.First(x => x.Name == Name);
+            if (dndnameToDelete != null)
+            {
+                _context.Remove(dndnameToDelete);
+                _context.SaveChanges();
+            }
+            return dndnameToDelete;
+        }
+        public DnD UpdateDnD(DnD dnd)
+        {
+            var updateCollection = _context.DnD.First(x => x.Name == dnd.Name);
+            if (updateCollection != null)
+            {
+                updateCollection.Name = dnd.Name;
+                updateCollection.Class= dnd.Class;
+                updateCollection.Race= dnd.Race;
+                updateCollection.Background = dnd.Background;
+                _context.SaveChanges();
+            }
+            return updateCollection;
+        }
+
+
     }
 }

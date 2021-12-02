@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Final_v1.Data;
+using Final_v1.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -7,50 +10,68 @@ using System.Threading.Tasks;
 
 namespace Final_v1.Controllers
 {
-    [ApiController]
     [Route("[controller]")]
+    [ApiController]
     public class DndController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         private readonly ILogger<DndController> _logger;
-
-        public DndController(ILogger<DndController> logger)
+        private readonly FinalDatabase _context;
+        public DndController(ILogger<DndController> logger, FinalDatabase context)
         {
             _logger = logger;
+            _context = context;
+        }
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok(_context.GetDnD());
         }
 
-        [HttpGet]
-        public IEnumerable<DndDatabase> Get()
+        [HttpPost]
+        public IActionResult AddNewDnd(DnD dnd)
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            try
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+                _context.AddNewDnD(dnd);
+            }
+            catch (Exception e)
+            {
+                return new StatusCodeResult(500);
+            }
+            return Created("", dnd);
         }
 
         [HttpPut]
-        public IEnumerable<DndDatabase> Get() 
-        { 
-         //public IActionResult UpdateDnd(DndClass class)
-         //IActionResult displays the
-
+        public IActionResult UpdateDnD(DnD dnd)
+        {
+            var result = _context.UpdateDnD(dnd);
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(dnd);
         }
 
         [HttpDelete]
-        public IEnumerable<DndDatabase> Get()
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Finalcontext))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+
+        public IActionResult DeleteDnD(string Name)
         {
-            _db.DeleteDndChar(char);
+            try
+            {
+                var deleteddnd = _context.DeleteDnD(Name);
+                if (deleteddnd == null)
+                {
+                    return NotFound();
+                }
+                return Ok(deleteddnd);
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(500);
+            }
         }
     }
 }
-
-//Need database class to wrap context (another class)
-//Context and database are a 1 to 1 relationship, meaning 1 context and 1 database 

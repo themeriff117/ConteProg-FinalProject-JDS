@@ -31,12 +31,16 @@ namespace Final_v1.Data
             (
                   new Anime { }
             );
+        
+        builder.Entity<DnD>().HasData
+           (
+                  new DnD { }
+            );
         }
 
-        public DbSet<NameDatabase> Name { get; set; }
+public DbSet<NameDatabase> Name { get; set; }
         public DbSet<Vinyl> VinylCollection { get; set; }
         public DbSet<Anime> Anime { get; set; } //just setting it up for Sam
-
-        // public DbSet<> {get; set;} placeholder for Julia's table
+        public DbSet<DnD>DnD {get; set;} 
     }
 }

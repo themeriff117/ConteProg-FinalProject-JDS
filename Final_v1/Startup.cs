@@ -43,8 +43,8 @@ namespace Final_v1
                 app.UseDeveloperExceptionPage();
             }
             app.UseOpenApi();
+           
             app.UseSwaggerUi3();
-            //context.Database.Migrate();
 
             context.Database.Migrate();
 
