@@ -7,6 +7,7 @@ namespace Final_v1
 {
     public class Anime
     {
+        public int Id { get; set; }
         public string MainChara{ get; set; }
 
         public string Name { get; set; }

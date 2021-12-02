@@ -27,7 +27,20 @@ namespace Final_v1.Controllers
             {
                 return Ok(_context.GetNameDatabase());
             }
-
+        [HttpDelete("id")]
+        public IActionResult GetByNameId(int id)
+        {
+            var name = _context.GetById(id);
+            if (name.ToList().Count() == 0)
+            {
+                return NotFound();
+            }
+            if (name != null)
+            {
+                return Ok(name);
+            }
+            return NotFound();
+        }
         [HttpPost]
         public IActionResult AddNameDatabasel(NameDatabase nameDatabase)
         {

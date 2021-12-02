@@ -25,6 +25,21 @@ namespace Final_v1.Controllers
         {
             return Ok(_context.GetAnime());
         }
+        [HttpDelete("id")]
+        public IActionResult GetByAnimeId (int id)
+        {
+            var anime = _context.GetByAnimeId(id);
+            if (anime.ToList().Count() == 0)
+            {
+                return NotFound();
+            }
+            if (anime != null)
+            {
+                return Ok(anime);
+            }
+            return NotFound();
+        }
+
         [HttpPost]
         public IActionResult AddNewAnime(Anime anime)
         {

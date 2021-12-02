@@ -14,6 +14,14 @@ namespace Final_v1.Data
             _context = context;
         }
         //group table
+        public IEnumerable<NameDatabase> GetById (int id)
+        {
+            if (id == 0)
+            {
+                return _context.Name.Take(5);
+            }
+            return _context.Name.Where(x => x.Id == id);
+        }
         public void AddNameDatabase(NameDatabase nameDatabase)
         {
             _context.Name.Add(nameDatabase);
@@ -59,6 +67,14 @@ namespace Final_v1.Data
             return updateCollection;
         }
         //dora's table
+        public IEnumerable<Vinyl> GetByVinylId(int id)
+        {
+            if (id == 0)
+            {
+                return _context.VinylCollection.Take(5);
+            }
+            return _context.VinylCollection.Where(x => x.Id == id);
+        }
         public void AddVinyls(Vinyl vinylToAdd)
         {
             _context.VinylCollection.Add(vinylToAdd);
@@ -103,6 +119,14 @@ namespace Final_v1.Data
             return updateCollection;
         }
         // Sam
+        public IEnumerable<Anime> GetByAnimeId(int id)
+        {
+            if (id == 0)
+            {
+                return _context.Anime.Take(5);
+            }
+            return _context.Anime.Where(x => x.Id == id);
+        }
         public void AddAnime(Anime anime)
         {
             _context.Anime.Add(anime);
@@ -148,6 +172,14 @@ namespace Final_v1.Data
             return updateCollection;
         }
         // Julia
+        public IEnumerable<DnD> GetByDnDId(int id)
+        {
+            if (id == 0)
+            {
+                return _context.DnD.Take(5);
+            }
+            return _context.DnD.Where(x => x.Id == id);
+        }
         public void AddDnD(DnD dnd)
         {
             _context.DnD.Add(dnd);
