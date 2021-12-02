@@ -29,12 +29,12 @@ namespace Final_v1.Data
            
             builder.Entity<Anime>().HasData
             (
-                  new Anime { }
+                  new Anime { Id = 1, MainChara = "", Name = "", Genre = "", Description = "" }
             );
         
         builder.Entity<DnD>().HasData
            (
-                  new DnD { }
+                  new DnD { Id = 1, Name = "", Class = "", Race ="", Background = "" }
             );
         }
 
