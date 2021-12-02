@@ -13,11 +13,11 @@ namespace Final_v1.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<NameDatabase>().HasData
+            _ = builder.Entity<NameDatabase>().HasData
            (
-                new NameDatabase { Name = "Samuel", Bday = "03/17/2000", CP = "Information Tech.", Year = 2021 },
-                new NameDatabase { Name = "Dora", Bday = "07/03/1996", CP = "Information Tech.", Year = 2021 },
-                new NameDatabase { Name = "Julia", Bday = "01/17/2000", CP = "Information Tech.", Year = 2021 }
+                new NameDatabase { _Name = "Samuel", Bday = "03/17/2000", CP = "Information Tech.", Year = 2021 },
+                new NameDatabase { _Name = "Dora", Bday = "07/03/1996", CP = "Information Tech.", Year = 2021 },
+                new NameDatabase { _Name = "Julia", Bday = "01/17/2000", CP = "Information Tech.", Year = 2021 }
             );
             
             builder.Entity<Vinyl>().HasData
@@ -34,7 +34,9 @@ namespace Final_v1.Data
         
         builder.Entity<DnD>().HasData
            (
-                  new DnD { }
+                  new DnD {Name= "Rimuru Tempest" ,Class="Paladin" , Race="Slime", Background= "Homeless"},
+                  new DnD { Name = "Luna Firerock", Class = "Sorcerer", Race = "Genasi", Background = "Urchin"},
+                  new DnD { Name = "Gora Library", Class = "Wizard", Race = "Kenku", Background = "Noble"}
             );
         }
 
