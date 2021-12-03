@@ -8,12 +8,8 @@ namespace Final_v1
 {
     public class NameDatabase
     {
-        private Guid _Name;
-        [Key]
-        public Guid Name 
-        {
-        get { return _Name; }
-        }
+        public int Id { get; set; }
+        public string Name { get; set; }
 
         public string Bday { get; set; }
 

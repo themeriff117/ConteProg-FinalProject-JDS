@@ -26,7 +26,20 @@ namespace Final_v1.Controllers
         {
             return Ok(_context.GetDnD());
         }
-
+        [HttpDelete("id")]
+        public IActionResult GetByDndId(int id)
+        {
+            var dnd = _context.GetByDnDId(id);
+            if (dnd.ToList().Count() == 0)
+            {
+                return NotFound();
+            }
+            if (dnd != null)
+            {
+                return Ok(dnd);
+            }
+            return NotFound();
+        }
         [HttpPost]
         public IActionResult AddNewDnd(DnD dnd)
         {

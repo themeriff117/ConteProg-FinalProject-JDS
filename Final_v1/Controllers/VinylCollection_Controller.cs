@@ -26,7 +26,20 @@ namespace Final_v1.Controllers
         {
             return Ok(_context.GetAllVinyls());
         }
-
+        [HttpDelete("id")]
+        public IActionResult GetByVinylId(int id)
+        {
+            var vinyl = _context.GetByVinylId(id);
+            if (vinyl.ToList().Count() == 0)
+            {
+                return NotFound();
+            }
+            if (vinyl != null)
+            {
+                return Ok(vinyl);
+            }
+            return NotFound();
+        }
         [HttpPost]
         public IActionResult AddNewVinyl(Vinyl vinyls)
         {

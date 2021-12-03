@@ -7,6 +7,7 @@ namespace Final_v1.Models
 {
     public class DnD
     {
+        public int Id { get; set; }
         public string Name { get; set; }
 
         public string Class { get; set; }
