@@ -37,7 +37,9 @@ namespace Final_v1.Data
         
         builder.Entity<DnD>().HasData
            (
-                  new DnD { }
+                  new DnD {Id = 1, Name = "Zero Tempest", Class= "Paladin", Race = "Slime", Background = "Homeless"},
+                  new DnD { Id = 2, Name = "Red Firerock", Class = "Sorcerer", Race = "Genasi", Background = "Noble"},
+                  new DnD { Id = 3, Name = "Gora Library", Class = "Wizard", Race = "Kenku", Background = "Urchin"}
             );
         }
 
