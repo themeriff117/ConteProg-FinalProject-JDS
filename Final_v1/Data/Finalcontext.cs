@@ -29,7 +29,10 @@ namespace Final_v1.Data
            
             builder.Entity<Anime>().HasData
             (
-                  new Anime { Id = 1, MainChara = "", Name = "", Genre = "", Description = "" }
+                  new Anime { Id = 1, MainChara = "Rimuru Tempest", Name = "Recarnated as a slime", Genre = "Isekai", Description = "Man gets stabed and recarnates as a slime" },
+                  new Anime { Id = 2, MainChara = "Izuku Midoryia", Name = "My Hero Acadamia", Genre = "Fansty", Description = "A world where everyone has a power called a qurik" },
+                  new Anime { Id = 3, MainChara = "Naruto Urzmaki", Name = "Naruto", Genre = "Fantsy", Description = "A world of ninja's" },
+                  new Anime { Id = 4 , MainChara = "Ash Ketchum", Name = "Pokemon", Genre = "Fantsy", Description = "Got to catch them all pokemon" }
             );
         
         builder.Entity<DnD>().HasData
